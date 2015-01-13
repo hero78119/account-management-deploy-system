@@ -33,7 +33,7 @@ cmdTemplate = {
                 "cd; rm -rf run;",
     "ssh_with_cmd" : 'ssh %s@IP -p PORT -i SSHKEYPATH -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "CMD"' % (defaultUser,),
     #"set_user_password": "echo USERNAME:PASSWORD | chpasswd;",
-    "add_user_with_group": "yes | adduser USERNAME --ingroup GROUP --disabled-password; echo USERNAME:USERNAME | chpasswd;",
+    "add_user_with_group": "if ! id -u USERNAME >/dev/null 2>&1; then yes | adduser USERNAME --ingroup GROUP --disabled-password; echo USERNAME:USERNAME | chpasswd; fi",
     "rm_user": "deluser USERNAME",
     "append_user_to_sudo": "usermod -aG sudo USERNAME",
     "rm_user_from_sudo": "deluser USERNAME sudo",
