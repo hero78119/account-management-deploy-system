@@ -4,7 +4,7 @@ Change Management Auto-Deploy System
 As well known, account management on unix-server, especially on larger host groups (dozens of server), is timing-cost effort and require manual operation. This project aim to solve by automatically and periodically deploying via user-defined config to add/remove user accounts and update their ssh pub keys. 
 
 ### Methodology
-Assume a deploy host, called **master**, which running a cron job at background to periodically pull the latest config from remote repository. Based on the config,  **master** packages the bundle data, finds some target hosts, call **slaves**,  and parallelly ship the bundle data and trigger execution on **slaves** host. On **slaves**, based on the bundle data, each slave will add/remove/update relative user accounts and their public keys.
+Assume a deploy host, called **master**, which running a cron job at background to periodically pull the latest config from remote repository. Based on the config,  **master** packages the bundle data, finds some target hosts, call **slaves**,  and parallelly ship the bundle data and trigger execution on **slaves** host. On **slaves**, based on the bundle data, each slave will add/remove/update relative user accounts and their public keys. Theoretically, **master** can  also belongs to **slaves** set.
  
 ### Note
 * Because of operating on account management, the script is assumed running both on master and slaves by *root* user. The project force **master** host communicate  with **slaves** via key-authenticated ssh to highly protect the security.
@@ -16,8 +16,8 @@ Assume a deploy host, called **master**, which running a cron job at background 
  
 ### Prerequisite
 * Currently only have test on Debian-based system, for example, Ubuntu, and Mac OSX.
-* On **master** host, command line tool *members* require to be installed to utilize to get all users giving a group. Reference installation step `` apt-get install members `` 
 * On **master** host, python package *joblib* require to be installed to utilize parallel execution. Reference installation step `` pip install joblib `` 
+* On **slave** host, command line tool *members* require to be installed to utilize to get all users giving a group. Reference installation step `` apt-get install members `` 
 
 ### Resources Directory and Configuration
 The resources file directory is *PROJECT_ROOT/res*. The configuration file assume located at *PROJECT_ROOT/conf/config.json* with the following JSON format.
@@ -78,3 +78,4 @@ The account public keys should be put under this directory with specific format.
 6. Afterward, you can push to update the config/pub key on remote repository as you want. The cronjob in master will serve to deploy to slave based on your latest config. 
 7. Enjoy it :)
 
+ 
