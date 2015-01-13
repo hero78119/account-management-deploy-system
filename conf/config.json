@@ -1,0 +1,11 @@
+{
+    "hostSets": {
+        "prod": {
+            "sshKeyPath": "/Users/jonaswu/vagrant/.vagrant/machines/default/virtualbox/private_key",
+            "port": 2222,
+            "ipList": "127.0.0.1",
+            "groupList": "users,sudoers",
+            "sudoGroups": "sudoers" 
+        }
+    }
+}

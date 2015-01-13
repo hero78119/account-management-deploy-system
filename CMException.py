@@ -1,0 +1,4 @@
+
+
+class CMException(Exception):
+    pass
