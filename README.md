@@ -1,7 +1,7 @@
 
 Change Management Auto-Deploy System
 =======
-As well known, account management on unix-server, especially on host group, is timing-cost effort and require manual operation. This project aim to solve by automatically and periodically deploying via user-defined config to add/remove user accounts and update their ssh pub keys. 
+As well known, account management on unix-server, especially on larger host groups (dozens of server), is timing-cost effort and require manual operation. This project aim to solve by automatically and periodically deploying via user-defined config to add/remove user accounts and update their ssh pub keys. 
 
 ### Methodology
 Assume a deploy host, called **master**, which running a cron job at background to periodically pull the latest config from remote repository. Based on the config,  **master** packages the bundle data, finds some target hosts, call **slaves**,  and parallelly ship the bundle data and trigger execution on **slaves** host. On **slaves**, based on the bundle data, each slave will add/remove/update relative user accounts and their public keys.
@@ -77,4 +77,4 @@ The account public keys should be put under this directory with specific format.
     
 6. Afterward, you can push to update the config/pub key on remote repository as you want. The cronjob in master will serve to deploy to slave based on your latest config. 
 7. Enjoy it :)
- 
+
