@@ -11,13 +11,14 @@ except Exception as e:
     #slave
     git_root_path = '/%s/run/' % (defaultUser,)
 
-cusConfPath = "conf/config.json"
 runtimeTmp = 'tmp/'
+defaultRes = 'res'
+cusConfPath = defaultRes + "/config.json"
+
 if not os.path.exists(runtimeTmp):
     os.makedirs(runtimeTmp)
 
-fileToShip = 'slave.py,*.py,*slaveProj_*.json'
-
+fileToShip = '*.py,slaveProj_*.json'
 
 confTemplate = {
     "pushFileName" : "HOSTSET.tar.gz",
@@ -29,8 +30,7 @@ cmdTemplate = {
     "tar_to_ship": 'find . -type f \\( EXPS \\) -exec tar zcvf ' + 'FILE {} +',
     "scp_file_to_host" : 'scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -P PORT -i SSHKEYPATH FILE %s@IP:~/' % (defaultUser,),
     "slaveCmd": "rm -rf run; mkdir run; mv FILE run/; cd run/; tar -xf FILE ./ ;" +
-                "python slave.py;" + 
-                "cd; rm -rf run;",
+                "mv %s src/; cd src/; python Slave.py;" % (defaultRes,) + "cd; rm -rf run;",
     "ssh_with_cmd" : 'ssh %s@IP -p PORT -i SSHKEYPATH -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "CMD"' % (defaultUser,),
     #"set_user_password": "echo USERNAME:PASSWORD | chpasswd;",
     "add_user_with_group": "if ! id -u USERNAME >/dev/null 2>&1; then yes | adduser USERNAME --ingroup GROUP --disabled-password; echo USERNAME:USERNAME | chpasswd; fi",

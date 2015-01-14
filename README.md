@@ -1,5 +1,5 @@
 
-Change Management Auto-Deploy System
+Account Management Deploy System (ADMS)
 =======
 As well known, account management on unix-server, especially on larger host groups (dozens of server), is timing-cost effort and require manual operation. This project aim to solve by automatically and periodically deploying via user-defined config to add/remove user accounts and update their ssh pub keys. 
 
@@ -20,25 +20,26 @@ Assume a deploy host, called **master**, which running a cron job at background 
 * On **slave** host, command line tool *members* require to be installed to utilize to get all users giving a group. Reference installation step `` apt-get install members `` 
 
 ### Resources Directory and Configuration
-The resources file directory is *PROJECT_ROOT/res*. The configuration file assume located at *PROJECT_ROOT/conf/config.json* with the following JSON format.
+The resources file directory assume located at *PROJECT_ROOT/res*. The configuration file assume located at *PROJECT_ROOT/res/config.json* with the following JSON format.
 
 #### Resources Directory
 The account public keys should be put under this directory with specific format.
 ```
    res/
+       config.json //configuration file
        GROUP1_USER1.pub // format is GROUP_USER.pub
        GROUP1_USER2.pub
        GROUP2_USER1.pub
        ...
 ```
 
-#### Configuration
+#### config.json
 
 ```
 {
     "hostSets": {
         "prod": {   //environment1 name
-            "sshKeyPath": "PATH1/TO/YOUR/KEYDIR/prod_root_private_key", //path point to 
+            "sshKeyPath": "PATH1/TO/YOUR/KEYDIR/prod_root_private_key", //path point to the private key with use to connect to these host groups specified in ipList
             "port": 2345,                            //ssh port of slave hosts
             "ipList": "10.8.0.2,192.168.0.103",      //slave host ip separated by comma
             "groupList": "admin,sudoers,dbmanager",  //group list separated by comma
@@ -65,15 +66,18 @@ The account public keys should be put under this directory with specific format.
 ```
 
 ### Installation
-1. fork the project into your own repository and clone into **master** host 
-2. put the public keys inside res directory with defined-format
-3. edit the configuration file as you want. Configure to assure that master can ssh to all other slaves with root identity. Also you should configure that master will be able to pull your repository by key-authentication without password required.
+1. clone this project into **master** host, said the directory name as ADMS
+2. fork the [template](https://bitbucket.org/hero78119/account-management-deploy-system-conf-template) project as your own repository 
+2. clone your template project into ADMS/ and rename your template repo as **res** directory
+2. put the public keys inside **res** directory with defined-format, ex for one of it: **res/admin_user1.pub**
+3. edit the configuration file **res/config.json** as you want. Configure to assure that master can ssh to all other slaves with root identity. Also you should configure that master will be able to pull your repository by key-authentication without password required.
 4. commit and push to your own remote repository
 5. on **master** host, edit a cronjob to run script periodically, ex, per hour
 
     ```
-    0  *  *  *  * sh PATH/TO/PROJECT_ROOT/masterCron.sh 
+    0  *  *  *  * sh PATH/TO/PROJECT_ROOT/MasterCron.sh 
     ```
     
-6. Afterward, you can push to update the config/pub key on remote repository as you want. The cronjob in master will serve to deploy to slave based on your latest config. 
+6. Afterward, you can push to update the pub key your remote template repository as you want. The cronjob in master will serve to deploy to slave based on your latest config. 
 7. Enjoy it :)
+

@@ -1,4 +1,4 @@
-import utils
+import Utils
 from conf import projConst
 import glob
 import os 
@@ -12,7 +12,7 @@ regexp = {
 
 
 def updateUserPubKeys(user, group):
-    update_user_pub_key_CMD = utils.recoverStringByDict(
+    update_user_pub_key_CMD = Utils.recoverStringByDict(
              projConst.cmdTemplate['update_user_pub_key'],
              {"USERNAME": user, "GROUP": group,}
         )
@@ -20,7 +20,7 @@ def updateUserPubKeys(user, group):
 
 def addUserWithGroup(users, group):
     for user in users:
-        add_user_with_group_CMD = utils.recoverStringByDict(
+        add_user_with_group_CMD = Utils.recoverStringByDict(
                  projConst.cmdTemplate['add_user_with_group'],
                  {"USERNAME": user, "GROUP": group,}
             )
@@ -29,7 +29,7 @@ def addUserWithGroup(users, group):
 
 def delUser(delUsers):
     for delUser in delUsers:
-        rm_user_CMD = utils.recoverStringByDict(
+        rm_user_CMD = Utils.recoverStringByDict(
                  projConst.cmdTemplate['rm_user'],
                  {"USERNAME": delUser,}
             )
@@ -37,7 +37,7 @@ def delUser(delUsers):
 
 def appendUsersToSudo(newSudoUsers):
     for newSudoUser in newSudoUsers:
-        append_user_to_sudo_CMD = utils.recoverStringByDict(
+        append_user_to_sudo_CMD = Utils.recoverStringByDict(
                  projConst.cmdTemplate['append_user_to_sudo'],
                  {"USERNAME": newSudoUser,}
             )
@@ -45,7 +45,7 @@ def appendUsersToSudo(newSudoUsers):
 
 def delUsersFromSudo(delSudoUsers):
     for delSudoUser in delSudoUsers:
-        rm_user_from_sudo_CMD = utils.recoverStringByDict(
+        rm_user_from_sudo_CMD = Utils.recoverStringByDict(
                  projConst.cmdTemplate['rm_user_from_sudo'],
                  {"USERNAME": delSudoUser,}
             )
@@ -54,8 +54,11 @@ def delUsersFromSudo(delSudoUsers):
 def main():
     groupUserMap = {}
     # build group -> users mapping
-    for file in os.listdir("res"):
+    for file in os.listdir(projConst.defaultRes):
         match = regexp['match_group_user'].match(file)
+        if not match:
+            continue
+
         group = match.group(1)
         user = match.group(2)
         if not groupUserMap.get(group, None):
@@ -64,21 +67,21 @@ def main():
     
     for file in glob.glob(projConst.runtimeTmp + "slaveProj_*.json"):
         slaveConfigPath = file
-    slaveConfig = utils.getDictFromFile(slaveConfigPath)
+    slaveConfig = Utils.getDictFromFile(slaveConfigPath)
     
     groups = DictAddrReader\
                   .readByPath('envData.groupList', slaveConfig)\
                   .split(',')
     for group in groups:
 
-        add_group_CMD = utils.recoverStringByDict(
+        add_group_CMD = Utils.recoverStringByDict(
                  projConst.cmdTemplate['add_group'],
                  {"GROUP": group,}
             )
         ShellCmdExecutor.executeSync(add_group_CMD)
          
  
-        get_users_in_group_CMD = utils.recoverStringByDict(
+        get_users_in_group_CMD = Utils.recoverStringByDict(
                  projConst.cmdTemplate['get_users_in_group'],
                  {"GROUP": group,}
             )
