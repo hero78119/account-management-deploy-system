@@ -40,5 +40,5 @@ cmdTemplate = {
     "add_group" : "addgroup GROUP",
     "get_users_in_group": "members GROUP",
     "get_users_in_sudo_group": "members %s" % (defaultSudoGroup, ),
-    "update_user_pub_key": 'if [ ! -d "/home/USERNAME/.ssh" ]; then mkdir /home/USERNAME/.ssh; fi; cp res/GROUP_USERNAME.pub /home/USERNAME/.ssh/authorized_keys; chown -R USERNAME:GROUP /home/USERNAME/.ssh; chmod -R 700 /home/USERNAME/.ssh/*',
+    "update_user_pub_key": 'if [ ! -d "/home/USERNAME/.ssh" ]; then mkdir /home/USERNAME/.ssh; fi; cp res/GROUP_USERNAME.pub /home/USERNAME/.ssh/authorized_keys; chown -R USERNAME:GROUP /home/USERNAME; chmod 700 /home/USERNAME/.ssh; chmod 600 /home/USERNAME/.ssh/*',
 }
