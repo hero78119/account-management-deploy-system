@@ -7,7 +7,7 @@ As well known, account management on unix-server, especially on larger host grou
 Assume a deploy host, called **master**, which running a cron job at background to periodically pull the latest config from remote repository. Based on the config,  **master** packages the bundle data, finds some target hosts, call **slaves**,  and parallelly ship the bundle data and trigger execution on **slaves** host. On **slaves**, based on the bundle data, each slave will add/remove/update relative user accounts and their public keys. Theoretically, **master** can  also belongs to **slaves** set.
  
 ### Note
-* Because of operating on account management, the script is assumed running both on master and slaves by *root* user. The project force **master** host communicate  with **slaves** via key-authenticated ssh to highly protect the security.
+* Because of operating on account management, the script is assumed running on **slaves** with *root* user. For **master**, there is no execution identity requirement but the _root_ account is preferred because this project require the ssh **PRIVATE_KEY** located on **master** for connection to other **slaves**. The project will force **master** host communicate  with **slaves** via key-authenticated ssh to highly protect the security.
 *  All operation are done by triggering linux built-in commands instead of modify sensitive file such as /etc/group, sudoers, sshd_config. This would prevent from accounts system broken due to the wrong modification of these file.
 * This project add new group but do not remove group. For removing user account, this project still keep their home directory.
 * The project won't touch any group/users which is not in config file, Don't worry~:)
@@ -77,5 +77,3 @@ The account public keys should be put under this directory with specific format.
     
 6. Afterward, you can push to update the config/pub key on remote repository as you want. The cronjob in master will serve to deploy to slave based on your latest config. 
 7. Enjoy it :)
-
- 
