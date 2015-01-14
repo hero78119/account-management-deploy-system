@@ -74,9 +74,25 @@ The account public keys should be put under this directory with specific format.
 5. on **master** host, edit a cronjob to run script periodically, ex, per hour
 
     ```
-    0  *  *  *  * sh PATH/TO/PROJECT_ROOT/MasterCron.sh 
+    0  *  *  *  * sh PATH/TO/PROJECT_ROOT/run.sh 
     ```
     
 6. Afterward, you can push to update the pub key your remote template repository as you want. The cronjob in master will serve to deploy to slave based on your latest config. 
 7. Enjoy it :)
+
+### Function Verify
+You can run task from command line directly to test if functional work or not by
+```bash
+    > sh run.sh [option]
+    #or
+    > python src/Main.py [option] 
+    # where option can be
+    #      -h, --help
+    #      --task= ['deploy', 'connectionTest']
+    #      default task is 'deploy'
+```
+For example, you can use ``python src/Main.py --task=connectionTest`` to test the master/slave ssh setting works or not. If failed then some error msg will show on screen like
+```
+ssh: connect to host XXX.XXX.XXX.XXX port XX: Connection refused
+```
 

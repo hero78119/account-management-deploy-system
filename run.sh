@@ -14,4 +14,4 @@ if [ ! -L $DIR/src/res ]; then
 fi
 
 cd $DIR/src/;
-python Master.py > /dev/null;
+python Main.py $@;
