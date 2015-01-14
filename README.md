@@ -1,4 +1,3 @@
-
 Account Management Deploy System (ADMS)
 =======
 As well known, account management on unix-server, especially on larger host groups (dozens of server), is timing-cost effort and require manual operation. This project aim to solve by automatically and periodically deploying via user-defined config to add/remove user accounts and update their ssh pub keys. 
