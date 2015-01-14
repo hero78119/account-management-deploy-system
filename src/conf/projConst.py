@@ -13,12 +13,13 @@ except Exception as e:
 
 runtimeTmp = git_root_path + 'tmp/'
 defaultRes = 'res'
+defaultResAbsPathInSlave = git_root_path + 'src/' + defaultRes
 cusConfPath = defaultRes + "/config.json"
 
 if not os.path.exists(runtimeTmp):
     os.makedirs(runtimeTmp)
 
-fileToShip = '*.py,slaveProj_*.json'
+fileToShip = '*.py,slaveProj_*.json,*.pub,*.json'
 
 confTemplate = {
     "pushFileName" : "HOSTSET.tar.gz",

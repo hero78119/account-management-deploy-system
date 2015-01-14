@@ -53,7 +53,7 @@ def delUsersFromSudo(delSudoUsers):
 def main():
     groupUserMap = {}
     # build group -> users mapping
-    for file in os.listdir(projConst.defaultRes):
+    for file in os.listdir(projConst.defaultResAbsPathInSlave):
         match = regexp['match_group_user'].match(file)
         if not match:
             continue
