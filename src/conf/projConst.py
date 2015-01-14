@@ -11,7 +11,7 @@ except Exception as e:
     #slave
     git_root_path = '/%s/run/' % (defaultUser,)
 
-runtimeTmp = 'tmp/'
+runtimeTmp = git_root_path + 'tmp/'
 defaultRes = 'res'
 cusConfPath = defaultRes + "/config.json"
 
