@@ -10,7 +10,6 @@ regexp = {
     'match_group_user': re.compile('(.*)\_(.*)\.pub'),
 }
 
-
 def updateUserPubKeys(user, group):
     update_user_pub_key_CMD = Utils.recoverStringByDict(
              projConst.cmdTemplate['update_user_pub_key'],
@@ -91,7 +90,8 @@ def main():
  
         delUsers = list(usersInSystem.difference(targetUsers))
         
-        addUserWithGroup(targetUsers, group)
+        targetUsersList = list(targetUsers)
+        addUserWithGroup(targetUsersList, group)
         delUser(delUsers)
     
     # sudo group process 
