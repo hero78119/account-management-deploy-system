@@ -42,9 +42,11 @@ cmdTemplate = {
     "get_users_in_group": "members GROUP",
     "get_users_in_sudo_group": "members %s" % (defaultSudoGroup, ),
     "update_user_pub_key": 'if [ ! -d "/home/USERNAME/.ssh" ]; then mkdir /home/USERNAME/.ssh; fi; cp %s/src/res/GROUP_USERNAME.pub /home/USERNAME/.ssh/authorized_keys; chown -R USERNAME:GROUP /home/USERNAME; chmod 700 /home/USERNAME/.ssh; chmod 600 /home/USERNAME/.ssh/*' % (git_root_path,),
+    "init_debian_slave": 'apt-get install members',
 }
 
 
 toolCmdTemplate = {
     'ssh_test': 'ssh %s@IP -p PORT -i SSHKEYPATH -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "hostname; echo \'connection success!\'" ' % (defaultUser,),
+    'ssh_exe_cmd': 'ssh %s@IP -p PORT -i SSHKEYPATH -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "CMD" ' % (defaultUser,),
 }

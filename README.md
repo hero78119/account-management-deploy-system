@@ -97,16 +97,20 @@ PROJECT_ROOT/
 ### Function Verify
 You can run task from command line directly to test if functional work or not by
 ```bash
-    > sh run.sh [option]
-    #or
-    > python src/Main.py [option] 
+    > sh run.sh [options [suboptions]]
+    # or
+    > python src/Main.py [options [suboptions]]
     # where option can be
-    #      -h, --help
-    #      --task= ['deploy', 'connectionTest']
-    #      default task is 'deploy'
+    # -h --help
+    # --task= ['deploy', 'connectionTest', 'exeShellCmd', 'initDebianSlave']
+    #  default task is 'deploy'
+    # 
+    #  suboptions for --task=exeShellCmd
+    #   --cmd=<bash shell cmd>
+    #   --groups=group1,group2,...  //(optionals, default is all groups)
+
 ```
 For example, you can use ``python src/Main.py --task=connectionTest`` to test the master/slave ssh setting works or not. If failed then some error msg will show on screen like
 ```
 ssh: connect to host XXX.XXX.XXX.XXX port XX: Connection refused
 ```
-
