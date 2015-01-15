@@ -80,6 +80,20 @@ The account public keys should be put under this directory with specific format.
 6. Afterward, you can push to update the pub key your remote template repository as you want. The cronjob in master will serve to deploy to slave based on your latest config. 
 7. Enjoy it :)
 
+After setup, the project hierarchy should look like this:
+```bash
+PROJECT_ROOT/
+        res/                => your private repository!
+           config.json      //configuration file
+           GROUP1_USER1.pub // format is GROUP_USER.pub
+           GROUP1_USER2.pub
+           GROUP2_USER1.pub
+           ...
+        src/
+        run.sh
+        README.md
+``` 
+
 ### Function Verify
 You can run task from command line directly to test if functional work or not by
 ```bash
