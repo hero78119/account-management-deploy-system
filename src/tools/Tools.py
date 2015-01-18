@@ -82,10 +82,10 @@ class Tools:
         hostSets = DictAddrReader.readByPath("hostSets", confDict)
         hostSets = hostSets.items()
  
-        groups = varBlob.get('groups', None)
-        if groups:
-            groups = groups.split(',')
-            hostSets = filter(lambda (env, envData,): env in groups, hostSets)
+        targetHostSets = varBlob.get('envs', None)
+        if targetHostSets:
+            targetHostSets = targetHostSets.split(',')
+            hostSets = filter(lambda (env, envData,): env in targetHostSets, hostSets)
        
         num_cores = multiprocessing.cpu_count()
         for env, envData in hostSets:

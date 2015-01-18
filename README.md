@@ -1,4 +1,4 @@
-Account Management Deploy System (ADMS)
+Account Management Deploy System (AMDS)
 =======
 As well known, account management on unix-server, especially on larger host groups (dozens of server), is timing-cost effort and require manual operation. This project aim to solve by automatically and periodically deploying via user-defined config to add/remove user accounts and update their ssh pub keys. 
 
@@ -107,10 +107,11 @@ You can run task from command line directly to test if functional work or not by
     # 
     #  suboptions for --task=exeShellCmd
     #   --cmd=<bash shell cmd>
-    #   --groups=group1,group2,...  //(optionals, default is all groups)
+    #   --envs=env1,env2,...  //(optionals, default is all enrironments)
 
 ```
 For example, you can use ``python src/Main.py --task=connectionTest`` to test the master/slave ssh setting works or not. If failed then some error msg will show on screen like
 ```
 ssh: connect to host XXX.XXX.XXX.XXX port XX: Connection refused
 ```
+

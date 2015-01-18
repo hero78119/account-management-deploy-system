@@ -20,7 +20,7 @@ def usage():
     print '\n'
     print 'suboptions for --task=exeShellCmd'
     print '  --cmd=<bash shell cmd>'
-    print '  --groups=group1,group2,...  //(optionals, default is all groups)'
+    print '  --envs=env1,env2,...  //(optionals, default is all enrironments)'
 
 def initialize():
     __builtin__.shellDryrun = False
@@ -29,7 +29,7 @@ def main():
     initialize()
     #process argument by getopt
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'h', ['help', 'shellDryrun', 'task=', 'cmd=', 'groups='])
+        opts, args = getopt.getopt(sys.argv[1:], 'h', ['help', 'shellDryrun', 'task=', 'cmd=', 'envs='])
     except getopt.GetoptError as err:
         # print help information and exit:
         print str(err) # will print something like "option -a not recognized"
